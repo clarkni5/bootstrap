@@ -29,6 +29,7 @@
     this.$element = $(element)
     this.options = $.extend({}, $.fn.carousel.defaults, options)
     this.options.slide && this.slide(this.options.slide)
+	 this.options.pauseOnHover && this.pauseOnHover()
   }
 
   Carousel.prototype = {
@@ -62,6 +63,11 @@
   , pause: function () {
       clearInterval(this.interval)
       return this
+    }
+
+    // @todo Don't restart the cycle if it was paused before the hover event
+  , pauseOnHover: function(element) {
+      this.$element.hover($.proxy(this.pause, this), $.proxy(this.cycle, this));
     }
 
   , next: function () {
@@ -132,7 +138,8 @@
   }
 
   $.fn.carousel.defaults = {
-    interval: 5000
+    interval: 5000,
+	 pauseOnHover: true
   }
 
   $.fn.carousel.Constructor = Carousel
