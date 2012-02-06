@@ -62,6 +62,7 @@
 
   , pause: function () {
       clearInterval(this.interval)
+		this.interval = null
       return this
     }
 
@@ -89,7 +90,7 @@
         , fallback  = type == 'next' ? 'first' : 'last'
         , that = this
 
-      // Only transition when there are more than 1 children
+      // Only transition when there are 2 or more children
       if (children.length < 2) return this
 		
       this.sliding = true
