@@ -82,12 +82,16 @@
 
   , slide: function (type, next) {
       var $active = this.$element.find('.active')
+        , children = $active.parent().children()
         , $next = next || $active[type]()
         , isCycling = this.interval
         , direction = type == 'next' ? 'left' : 'right'
         , fallback  = type == 'next' ? 'first' : 'last'
         , that = this
 
+      // Only transition when there are more than 1 children
+      if (children.length < 2) return this
+		
       this.sliding = true
 
       isCycling && this.pause()
